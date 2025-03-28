@@ -1,0 +1,68 @@
+[
+    {"version": "24.11.3",
+    "title": "acchan",
+    "files":"filename",
+    "dark":{
+        "author":"someone",
+        "source":"https://"
+    },
+    "light":{
+        "author":"someone",
+        "source":"https://"
+    }},
+    {"version": "24.11.2",
+    "title": "Kurisu / okabe",
+    "files":"kurisu-24-11-2",
+    "dark":{
+        "author":"raidyHD",
+        "source":"https://whvn.cc/xldvvo"
+    },
+    "light":{
+        "author":"unknown",
+        "source":"https://whvn.cc/4dpl8g"
+    }},
+    {"version": "24.11.1",
+    "title": "Miku",
+    "files":"Miku-24-11-1",
+    "dark":{
+        "author":"raidyHD",
+        "source":"https://whvn.cc/738kxv"
+    },
+    "light":{
+        "author":"raidyHD",
+        "source":"https://whvn.cc/m91k7y"
+    }},
+    {"version": "24.11",
+    "title": "Acchan",
+    "files":"Acchan-24-11",
+    "dark":{
+        "author":"Ravimo (ravioli mavioli)",
+        "source":"https://www.pixiv.net/en/artworks/89596288"
+    },
+    "light":{
+        "author":"Ravimo (ravioli mavioli)",
+        "source":"https://www.pixiv.net/en/artworks/89596288"
+    }},
+    {"version": "24.4.1",
+    "title": "Koshi",
+    "files":"Koshi-24-4-1",
+    "dark":{
+        "author":"someone",
+        "source":"https://wall.alphacoders.com/big.php?i=1370919"
+    },
+    "light":{
+        "author":"someone",
+        "source":"https://wall.alphacoders.com/big.php?i=1373180"
+    }},
+    {"version": "24.4",
+    "title": "Frieren",
+    "files":"Frieren-24-4",
+    "dark":{
+        "author":"someone",
+        "source":"https://whvn.cc/gpvq63"
+    },
+    "light":{
+        "author":"void_0",
+        "source":"https://whvn.cc/l8o2op"
+    }}
+]
