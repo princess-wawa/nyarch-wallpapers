@@ -11,7 +11,9 @@
         <property name="hexpand">True</property>
         <property name="vexpand">True</property>
         <child>
-          <object class="GtkBox" id="nyarch-wallpapers"/>
+          <object class="GtkBox" id="nyarch-wallpapers">
+            <property name="orientation">vertical</property>
+          </object>
         </child>
         <child type="tab">
           <object class="GtkLabel">
@@ -21,7 +23,9 @@
           </object>
         </child>
         <child>
-          <object class="GtkBox" id="release-wallpapers"/>
+          <object class="GtkBox" id="release-wallpapers">
+            <property name="orientation">vertical</property>
+          </object>
         </child>
         <child type="tab">
           <object class="GtkLabel">
@@ -30,7 +34,9 @@
           </object>
         </child>
         <child>
-          <object class="GtkBox" id="gnome-wallpapers"/>
+          <object class="GtkBox" id="gnome-wallpapers">
+            <property name="orientation">vertical</property>
+          </object>
         </child>
         <child type="tab">
           <object class="GtkLabel">

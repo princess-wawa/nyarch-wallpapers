@@ -41,16 +41,11 @@ class NyarchWallpapersApplication(Adw.Application):
         self.load_css()
 
         # Connect the widgets from the UI
-        self.nyarch_wallpapers_box = builder.get_object("nyarch-wallpapers")
-        self.release_wallpapers_box = builder.get_object("release-wallpapers")
-        self.gnome_wallpapers_box = builder.get_object("gnome-wallpapers")
+        self.nyarch_box = builder.get_object("nyarch-wallpapers")
+        self.release_box = builder.get_object("release-wallpapers")
+        self.gnome_box = builder.get_object("gnome-wallpapers")
 
-        # Optionally, we can set some widgets to display content in these boxes, e.g., for example, adding labels or images.
-        # Here we can also create placeholders to demonstrate functionality.
-
-        self.nyarch_wallpapers_box.append(Gtk.Label(label="This is the nyarch wallpapers tab"))
-        self.release_wallpapers_box.append(Gtk.Label(label="This is the releases wallpapers tab"))
-        self.gnome_wallpapers_box.append(Gtk.Label(label="This is the gnome wallpapers tab"))
+        self.add_all_wallpapers(self.release_box, "updates")
 
         self.win.show()
     
@@ -84,6 +79,88 @@ class NyarchWallpapersApplication(Adw.Application):
         self.add_action(action)
         if shortcuts:
             self.set_accels_for_action(f"app.{name}", shortcuts)
+
+    def add_wallpaper(self, page, version, name, dark, light):
+        vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+        
+        # Version and Name Labels
+        version_label = Gtk.Label(label=version)
+        version_label.get_style_context().add_class("wallpaper_version")
+        vbox.append(version_label)
+
+        name_label = Gtk.Label(label=name)
+        name_label.get_style_context().add_class("wallpaper_title")
+        vbox.append(name_label)
+
+        # Images Box (Horizontal Layout)
+        hbox_images = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+
+        # Light Image Section
+        light_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=5)
+        light_box.set_hexpand(True)  # Allow horizontal expansion
+        light_box.set_vexpand(True)  # Allow vertical expansion
+        light_image = Gtk.Image.new_from_file(light)
+        light_image.get_style_context().add_class("wallpaper_image")
+        light_image.set_hexpand(True)  # Ensure image expands horizontally
+        light_image.set_vexpand(True)  # Ensure image expands vertically
+        light_box.append(light_image)
+
+        # Light Buttons (Align to the right)
+        btn_box_light = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=5)
+        btn_box_light.set_halign(Gtk.Align.END)  # Align buttons to the right
+        btn_info_light = Gtk.Button()
+        btn_info_light.set_icon_name("dialog-information")  # Info icon
+        btn_set_light = Gtk.Button()
+        btn_set_light.set_icon_name("preferences-desktop-wallpaper")  # Wallpaper icon
+        btn_box_light.append(btn_info_light)
+        btn_box_light.append(btn_set_light)
+        light_box.append(btn_box_light)
+
+        # Dark Image Section
+        dark_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=5)
+        dark_box.set_hexpand(True)  # Allow horizontal expansion
+        dark_box.set_vexpand(True)  # Allow vertical expansion
+        dark_image = Gtk.Image.new_from_file(dark)
+        dark_image.get_style_context().add_class("wallpaper_image")
+        dark_image.set_hexpand(True)  # Ensure image expands horizontally
+        dark_image.set_vexpand(True)  # Ensure image expands vertically
+        dark_box.append(dark_image)
+
+        # Dark Buttons (Align to the right)
+        btn_box_dark = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=5)
+        btn_box_dark.set_halign(Gtk.Align.END)  # Align buttons to the right
+        btn_info_dark = Gtk.Button()
+        btn_info_dark.set_icon_name("dialog-information")  # Info icon
+        btn_set_dark = Gtk.Button()
+        btn_set_dark.set_icon_name("preferences-desktop-wallpaper")  # Wallpaper icon
+        btn_box_dark.append(btn_info_dark)
+        btn_box_dark.append(btn_set_dark)
+        dark_box.append(btn_box_dark)
+
+        # Add both images and their buttons to the row
+        hbox_images.append(light_box)
+        hbox_images.append(dark_box)
+
+        # Add the images section to the main vertical box
+        vbox.append(hbox_images)
+
+        # Add the final layout to the page
+        page.append(vbox)
+
+    def add_all_wallpapers(self, page, page_name):
+        path = Path(__file__).parent.parent / "wallpapers" / page_name 
+        json_path = f"{path}/list.json"
+        with open(json_path, 'r', encoding='utf-8') as file:
+            try:
+                data = json.load(file)
+                for e in data:
+                    dark_path = f"{path}/{e["files"]}_dark.png"
+                    light_path = f"{path}/{e["files"]}_light.png"
+                    self.add_wallpaper(page,e["version"],e["title"],dark_path,light_path)
+
+            except json.JSONDecodeError:
+                print(f"Error decoding JSON in file: {json_path}")
+
 
 def main():
     """The application's entry point."""
