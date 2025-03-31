@@ -101,8 +101,10 @@ class NyarchWallpapersApplication(Adw.Application):
         light_box.set_vexpand(True)  # Allow vertical expansion
         light_image = Gtk.Image.new_from_file(light)
         light_image.get_style_context().add_class("wallpaper_image")
-        light_image.set_hexpand(True)  # Ensure image expands horizontally
-        light_image.set_vexpand(True)  # Ensure image expands vertically
+        light_image.set_hexpand(True)  # Image expands horizontally
+        light_image.set_vexpand(True)  # Image expands vertically
+        light_image.set_halign(Gtk.Align.FILL)  # Ensure image fills width
+        light_image.set_valign(Gtk.Align.FILL)  # Ensure image fills height
         light_box.append(light_image)
 
         # Light Buttons (Align to the right)
@@ -122,8 +124,10 @@ class NyarchWallpapersApplication(Adw.Application):
         dark_box.set_vexpand(True)  # Allow vertical expansion
         dark_image = Gtk.Image.new_from_file(dark)
         dark_image.get_style_context().add_class("wallpaper_image")
-        dark_image.set_hexpand(True)  # Ensure image expands horizontally
-        dark_image.set_vexpand(True)  # Ensure image expands vertically
+        dark_image.set_hexpand(True)  # Image expands horizontally
+        dark_image.set_vexpand(True)  # Image expands vertically
+        dark_image.set_halign(Gtk.Align.FILL)  # Ensure image fills width
+        dark_image.set_valign(Gtk.Align.FILL)  # Ensure image fills height
         dark_box.append(dark_image)
 
         # Dark Buttons (Align to the right)
