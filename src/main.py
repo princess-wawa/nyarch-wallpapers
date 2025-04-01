@@ -82,7 +82,7 @@ class NyarchWallpapersApplication(Adw.Application):
 
     def add_wallpaper(self, page, version, name, dark, light):
         vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
-        
+
         # Version and Name Labels
         version_label = Gtk.Label(label=version)
         version_label.get_style_context().add_class("wallpaper_version")
@@ -95,57 +95,49 @@ class NyarchWallpapersApplication(Adw.Application):
         # Images Box (Horizontal Layout)
         hbox_images = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
 
-        # Light Image Section
-        light_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=5)
-        light_box.set_hexpand(True)  # Allow horizontal expansion
-        light_box.set_vexpand(True)  # Allow vertical expansion
-        light_image = Gtk.Image.new_from_file(light)
-        light_image.get_style_context().add_class("wallpaper_image")
-        light_image.set_hexpand(True)  # Image expands horizontally
-        light_image.set_vexpand(True)  # Image expands vertically
-        light_image.set_halign(Gtk.Align.FILL)  # Ensure image fills width
-        light_image.set_valign(Gtk.Align.FILL)  # Ensure image fills height
-        light_box.append(light_image)
+        # Function to create an image box with a 16:9 aspect ratio
+        def create_image_section(image_path):
+            box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=5)
 
-        # Light Buttons (Align to the right)
-        btn_box_light = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=5)
-        btn_box_light.set_halign(Gtk.Align.END)  # Align buttons to the right
-        btn_info_light = Gtk.Button()
-        btn_info_light.set_icon_name("dialog-information")  # Info icon
-        btn_set_light = Gtk.Button()
-        btn_set_light.set_icon_name("preferences-desktop-wallpaper")  # Wallpaper icon
-        btn_box_light.append(btn_info_light)
-        btn_box_light.append(btn_set_light)
-        light_box.append(btn_box_light)
+            # AspectFrame enforces 16:9 ratio
+            aspect_frame = Gtk.AspectFrame(
+                xalign=0.5,
+                yalign=0.5,
+                ratio=16 / 9,
+                obey_child=False
+            )
+            aspect_frame.set_hexpand(True)  # Expand to fill available width
 
-        # Dark Image Section
-        dark_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=5)
-        dark_box.set_hexpand(True)  # Allow horizontal expansion
-        dark_box.set_vexpand(True)  # Allow vertical expansion
-        dark_image = Gtk.Image.new_from_file(dark)
-        dark_image.get_style_context().add_class("wallpaper_image")
-        dark_image.set_hexpand(True)  # Image expands horizontally
-        dark_image.set_vexpand(True)  # Image expands vertically
-        dark_image.set_halign(Gtk.Align.FILL)  # Ensure image fills width
-        dark_image.set_valign(Gtk.Align.FILL)  # Ensure image fills height
-        dark_box.append(dark_image)
+            image = Gtk.Image.new_from_file(image_path)
+            image.get_style_context().add_class("wallpaper_image")
+            aspect_frame.add(image)  # Add image to the frame
 
-        # Dark Buttons (Align to the right)
-        btn_box_dark = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=5)
-        btn_box_dark.set_halign(Gtk.Align.END)  # Align buttons to the right
-        btn_info_dark = Gtk.Button()
-        btn_info_dark.set_icon_name("dialog-information")  # Info icon
-        btn_set_dark = Gtk.Button()
-        btn_set_dark.set_icon_name("preferences-desktop-wallpaper")  # Wallpaper icon
-        btn_box_dark.append(btn_info_dark)
-        btn_box_dark.append(btn_set_dark)
-        dark_box.append(btn_box_dark)
+            box.append(aspect_frame)
 
-        # Add both images and their buttons to the row
-        hbox_images.append(light_box)
-        hbox_images.append(dark_box)
+            # Buttons Box (Align to the right)
+            btn_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=5)
+            btn_box.set_halign(Gtk.Align.END)  # Align buttons to the right
 
-        # Add the images section to the main vertical box
+            btn_info = Gtk.Button()
+            btn_info.set_icon_name("dialog-information")  # Info icon
+            btn_set = Gtk.Button()
+            btn_set.set_icon_name("preferences-desktop-wallpaper")  # Wallpaper icon
+
+            btn_box.append(btn_info)
+            btn_box.append(btn_set)
+            box.append(btn_box)
+
+            return box
+
+        # Create light and dark image sections
+        light_section = create_image_section(light)
+        dark_section = create_image_section(dark)
+
+        # Add both sections to the horizontal box
+        hbox_images.append(light_section)
+        hbox_images.append(dark_section)
+
+        # Add images section to the main vertical box
         vbox.append(hbox_images)
 
         # Add the final layout to the page

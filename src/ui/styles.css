@@ -1,6 +1,13 @@
-.nyarch-label:before{
+.nyarch-label{
     padding-left: 100px;
 }
 .gnome-label{
     padding-right: 100px;
+}
+.wallpaper_version{
+    font-weight: bold;
+    font-size: 20px;
+}
+.wallpaper_title{
+    font-size: 15px;
 }

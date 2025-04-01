@@ -10,9 +10,16 @@
         <property name="halign">baseline-fill</property>
         <property name="hexpand">True</property>
         <property name="vexpand">True</property>
+        
         <child>
-          <object class="GtkBox" id="nyarch-wallpapers">
-            <property name="orientation">vertical</property>
+          <object class="GtkScrolledWindow">
+            <property name="hexpand">True</property>
+            <property name="vexpand">True</property>
+            <child>
+              <object class="GtkBox" id="nyarch-wallpapers">
+                <property name="orientation">vertical</property>
+              </object>
+            </child>
           </object>
         </child>
         <child type="tab">
@@ -22,9 +29,16 @@
             <property name="label">nyarch</property>
           </object>
         </child>
+
         <child>
-          <object class="GtkBox" id="release-wallpapers">
-            <property name="orientation">vertical</property>
+          <object class="GtkScrolledWindow">
+            <property name="hexpand">True</property>
+            <property name="vexpand">True</property>
+            <child>
+              <object class="GtkBox" id="release-wallpapers">
+                <property name="orientation">vertical</property>
+              </object>
+            </child>
           </object>
         </child>
         <child type="tab">
@@ -33,9 +47,16 @@
             <property name="label">releases</property>
           </object>
         </child>
+
         <child>
-          <object class="GtkBox" id="gnome-wallpapers">
-            <property name="orientation">vertical</property>
+          <object class="GtkScrolledWindow">
+            <property name="hexpand">True</property>
+            <property name="vexpand">True</property>
+            <child>
+              <object class="GtkBox" id="gnome-wallpapers">
+                <property name="orientation">vertical</property>
+              </object>
+            </child>
           </object>
         </child>
         <child type="tab">
@@ -45,6 +66,7 @@
             <property name="label">gnome</property>
           </object>
         </child>
+
       </object>
     </child>
   </object>

@@ -10,8 +10,15 @@
         <property name="halign">baseline-fill</property>
         <property name="hexpand">True</property>
         <property name="vexpand">True</property>
+        
         <child>
-          <object class="GtkBox" id="nyarch-wallpapers"/>
+          <object class="GtkScrolledWindow">
+            <property name="hexpand">True</property>
+            <property name="vexpand">True</property>
+            <child>
+              <object class="GtkBox" id="nyarch-wallpapers"/>
+            </child>
+          </object>
         </child>
         <child type="tab">
           <object class="GtkLabel">
@@ -20,8 +27,15 @@
             <property name="label">nyarch</property>
           </object>
         </child>
+
         <child>
-          <object class="GtkBox" id="release-wallpapers"/>
+          <object class="GtkScrolledWindow">
+            <property name="hexpand">True</property>
+            <property name="vexpand">True</property>
+            <child>
+              <object class="GtkBox" id="release-wallpapers"/>
+            </child>
+          </object>
         </child>
         <child type="tab">
           <object class="GtkLabel">
@@ -29,8 +43,15 @@
             <property name="label">releases</property>
           </object>
         </child>
+
         <child>
-          <object class="GtkBox" id="gnome-wallpapers"/>
+          <object class="GtkScrolledWindow">
+            <property name="hexpand">True</property>
+            <property name="vexpand">True</property>
+            <child>
+              <object class="GtkBox" id="gnome-wallpapers"/>
+            </child>
+          </object>
         </child>
         <child type="tab">
           <object class="GtkLabel">
@@ -39,6 +60,7 @@
             <property name="label">gnome</property>
           </object>
         </child>
+
       </object>
     </child>
   </object>
