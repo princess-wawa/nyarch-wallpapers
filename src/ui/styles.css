@@ -11,3 +11,7 @@
 .wallpaper_title{
     font-size: 15px;
 }
+
+.aspect-16-9 {
+    aspect-ratio: 16/9;
+  }

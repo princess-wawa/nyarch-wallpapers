@@ -82,65 +82,60 @@ class NyarchWallpapersApplication(Adw.Application):
 
     def add_wallpaper(self, page, version, name, dark, light):
         vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
-
+        
         # Version and Name Labels
         version_label = Gtk.Label(label=version)
         version_label.get_style_context().add_class("wallpaper_version")
         vbox.append(version_label)
 
-        name_label = Gtk.Label(label=name)
-        name_label.get_style_context().add_class("wallpaper_title")
-        vbox.append(name_label)
+        if name != None:
+            name_label = Gtk.Label(label=name)
+            name_label.get_style_context().add_class("wallpaper_title")
+            vbox.append(name_label)
 
         # Images Box (Horizontal Layout)
         hbox_images = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        hbox_images.set_hexpand(True)
 
-        # Function to create an image box with a 16:9 aspect ratio
+        # Function to create image section
         def create_image_section(image_path):
+            # Main container
             box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=5)
-
-            # AspectFrame enforces 16:9 ratio
-            aspect_frame = Gtk.AspectFrame(
-                xalign=0.5,
-                yalign=0.5,
-                ratio=16 / 9,
+            box.set_hexpand(True)
+            
+            # Image container with aspect ratio enforcement
+            image_container = Gtk.AspectFrame(
+                ratio=16/9,  # 16:9 aspect ratio
                 obey_child=False
             )
-            aspect_frame.set_hexpand(True)  # Expand to fill available width
-
-            image = Gtk.Image.new_from_file(image_path)
-            image.get_style_context().add_class("wallpaper_image")
-            aspect_frame.add(image)  # Add image to the frame
-
-            box.append(aspect_frame)
-
-            # Buttons Box (Align to the right)
+            image_container.set_hexpand(True)
+            
+            # The actual image
+            picture = Gtk.Picture.new_for_filename(image_path)
+            picture.set_content_fit(Gtk.ContentFit.COVER)
+            picture.set_size_request(-1, 250)  # Minimum height
+            
+            image_container.set_child(picture)
+            box.append(image_container)
+            
+            # Buttons
             btn_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=5)
-            btn_box.set_halign(Gtk.Align.END)  # Align buttons to the right
-
-            btn_info = Gtk.Button()
-            btn_info.set_icon_name("dialog-information")  # Info icon
-            btn_set = Gtk.Button()
-            btn_set.set_icon_name("preferences-desktop-wallpaper")  # Wallpaper icon
-
+            btn_box.set_halign(Gtk.Align.END)
+            btn_info = Gtk.Button(icon_name="dialog-information")
+            btn_set = Gtk.Button(icon_name="preferences-desktop-wallpaper")
             btn_box.append(btn_info)
             btn_box.append(btn_set)
             box.append(btn_box)
-
+            
             return box
 
-        # Create light and dark image sections
-        light_section = create_image_section(light)
-        dark_section = create_image_section(dark)
+        # Add both image sections
+        hbox_images.append(create_image_section(light))
+        hbox_images.append(create_image_section(dark))
 
-        # Add both sections to the horizontal box
-        hbox_images.append(light_section)
-        hbox_images.append(dark_section)
-
-        # Add images section to the main vertical box
+        # Assemble the layout
+        vbox.append(version_label)
         vbox.append(hbox_images)
-
-        # Add the final layout to the page
         page.append(vbox)
 
     def add_all_wallpapers(self, page, page_name):
@@ -150,12 +145,17 @@ class NyarchWallpapersApplication(Adw.Application):
             try:
                 data = json.load(file)
                 for e in data:
-                    dark_path = f"{path}/{e["files"]}_dark.png"
-                    light_path = f"{path}/{e["files"]}_light.png"
+                    dark_path = jpg_or_png(f"{path}/{e["files"]}_dark")
+                    light_path = jpg_or_png(f"{path}/{e["files"]}_light")
                     self.add_wallpaper(page,e["version"],e["title"],dark_path,light_path)
 
             except json.JSONDecodeError:
                 print(f"Error decoding JSON in file: {json_path}")
+    
+def jpg_or_png(path):    
+    if os.path.exists(f"{path}.jpg"):
+        return f"{path}.jpg"
+    return f"{path}.png"
 
 
 def main():
