@@ -35,7 +35,7 @@ def update_category(name):
     """updates all the wallpapers from the given category"""
     wallpapers_path = Path(__file__).parent.parent / "wallpapers" / name
     list_path = f"{wallpapers_path}/list.json"
-    update_path = f"https://github.com/princess-wawa/nyarch-wallpapers/blob/main/wallpapers/{name}/list.json"
+    update_path = f"https://raw.githubusercontent.com/princess-wawa/nyarch-wallpapers/refs/heads/main/wallpapers/{name}/list.json"
     
     download_file(update_path, list_path)
 
