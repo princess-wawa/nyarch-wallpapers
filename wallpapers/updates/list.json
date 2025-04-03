@@ -3,66 +3,78 @@
     "title": "acchan",
     "files":"acchan-24-11-3",
     "dark":{
-        "author":"someone",
-        "source":"https://"
+        "author":"Ravimo (ravioli mavioli)",
+        "source":"https://mastodon.social/@ravimo/110665121974136458",
+        "source-link":"https://files.mastodon.social/media_attachments/files/110/665/120/780/119/561/original/7d819e4a00331952.jpg"
     },
     "light":{
-        "author":"someone",
-        "source":"https://"
+        "author":"Ravimo (ravioli mavioli)",
+        "source":"https://ko-fi.com/i/IJ3J4GV034",
+        "source-link":"https://storage.ko-fi.com/cdn/useruploads/display/b41bb03a-6ece-4a15-b115-a258038a1ffd_103383813_p0.jpg"
     }},
     {"version": "24.11.2",
     "title": "Kurisu / okabe",
     "files":"kurisu-24-11-2",
     "dark":{
         "author":"raidyHD",
-        "source":"https://whvn.cc/xldvvo"
+        "source":"https://whvn.cc/xldvvo",
+        "source-link":"https://w.wallhaven.cc/full/xl/wallhaven-xldvvo.png"
     },
     "light":{
         "author":"unknown",
-        "source":"https://whvn.cc/4dpl8g"
+        "source":"https://whvn.cc/4dpl8g",
+        "source-link":"https://w.wallhaven.cc/full/4d/wallhaven-4dpl8g.jpg"
     }},
     {"version": "24.11.1",
     "title": "Miku",
     "files":"Miku-24-11-1",
     "dark":{
         "author":"raidyHD",
-        "source":"https://whvn.cc/738kxv"
+        "source":"https://whvn.cc/738kxv",
+        "source-link":"https://w.wallhaven.cc/full/73/wallhaven-738kxv.png"
     },
     "light":{
         "author":"raidyHD",
-        "source":"https://whvn.cc/m91k7y"
+        "source":"https://whvn.cc/m91k7y",
+        "source-link":"https://w.wallhaven.cc/full/m9/wallhaven-m91k7y.png"
     }},
     {"version": "24.11",
     "title": "Acchan",
     "files":"Acchan-24-11",
     "dark":{
         "author":"Ravimo (ravioli mavioli)",
-        "source":"https://www.pixiv.net/en/artworks/89596288"
+        "source":"https://www.pixiv.net/en/artworks/89596288",
+        "source-link":"https://i.pximg.net/img-master/img/2021/05/04/19/16/51/89596288_p0_master1200.jpg"
     },
     "light":{
         "author":"Ravimo (ravioli mavioli)",
-        "source":"https://www.pixiv.net/en/artworks/89596288"
+        "source":"https://www.pixiv.net/en/artworks/89596288",
+        "source-link":"https://i.pximg.net/img-master/img/2021/05/04/19/16/51/89596288_p2_master1200.jpg"
     }},
     {"version": "24.4.1",
     "title": "Koshi",
     "files":"Koshi-24-4-1",
     "dark":{
-        "author":"someone",
-        "source":"https://wall.alphacoders.com/big.php?i=1370919"
+        "author":"Wit Studio (My Deer Friend Nokotan)",
+        "source":"https://wall.alphacoders.com/big.php?i=1370919",
+        "source-link":"https://images5.alphacoders.com/137/thumb-1920-1370919.png"
     },
     "light":{
-        "author":"someone",
-        "source":"https://wall.alphacoders.com/big.php?i=1373180"
+        "author":"Wit Studio (My Deer Friend Nokotan)",
+        "source":"https://wall.alphacoders.com/big.php?i=1373180",
+        "source-link":"https://images6.alphacoders.com/137/thumb-1920-1373180.png"
     }},
     {"version": "24.4",
     "title": "Frieren",
     "files":"Frieren-24-4",
     "dark":{
-        "author":"someone",
-        "source":"https://whvn.cc/gpvq63"
+        "author":"Q晴叔",
+        "source":"https://www.pixiv.net/en/artworks/114285414",
+        "source-link":"https://i.pximg.net/img-master/img/2023/12/16/22/54/57/114285414_p0_master1200.jpg"
     },
     "light":{
         "author":"void_0",
-        "source":"https://whvn.cc/l8o2op"
+        "source":"https://whvn.cc/l8o2op",
+        "source-link":"https://w.wallhaven.cc/full/l8/wallhaven-l8o2op.jpg"
     }}
 ]

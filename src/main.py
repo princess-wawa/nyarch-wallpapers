@@ -46,7 +46,9 @@ class NyarchWallpapersApplication(Adw.Application):
         self.gnome_box = builder.get_object("gnome-wallpapers")
 
         self.add_all_wallpapers(self.release_box, "updates")
-
+        
+        print(self.win)
+        
         self.win.show()
     
     def load_css(self):
@@ -145,17 +147,13 @@ class NyarchWallpapersApplication(Adw.Application):
             try:
                 data = json.load(file)
                 for e in data:
-                    dark_path = jpg_or_png(f"{path}/{e["files"]}_dark")
-                    light_path = jpg_or_png(f"{path}/{e["files"]}_light")
+                    dark_path = f"{path}/{e["files"]}_dark.jpg"
+                    light_path = f"{path}/{e["files"]}_light.jpg"
                     self.add_wallpaper(page,e["version"],e["title"],dark_path,light_path)
 
             except json.JSONDecodeError:
                 print(f"Error decoding JSON in file: {json_path}")
     
-def jpg_or_png(path):    
-    if os.path.exists(f"{path}.jpg"):
-        return f"{path}.jpg"
-    return f"{path}.png"
 
 
 def main():
