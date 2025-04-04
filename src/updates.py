@@ -47,10 +47,12 @@ def is_up_to_date():
 
 def update_all():
     """updates everything"""
-    if not(is_up_to_date()):
+
+    wallpapers_path = Path(__file__).parent.parent / "wallpapers"
+    list_path = f"{wallpapers_path}/list.json"
+
+    if not(is_up_to_date() and os.path.exists(list_path)):
         """updates all the wallpapers from the given category"""
-        wallpapers_path = Path(__file__).parent.parent / "wallpapers"
-        list_path = f"{wallpapers_path}/list.json"
         update_path = f"https://raw.githubusercontent.com/princess-wawa/nyarch-wallpapers/refs/heads/main/wallpapers/list.json"
         
         success = download_file(update_path, list_path)

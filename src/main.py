@@ -82,7 +82,7 @@ class NyarchWallpapersApplication(Adw.Application):
         if shortcuts:
             self.set_accels_for_action(f"app.{name}", shortcuts)
 
-    def add_wallpaper(self, page, version, name, dark, light):
+    def add_wallpaper(self, page, version, name, dark, light, position):
         vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
         
         # Version and Name Labels
@@ -146,13 +146,30 @@ class NyarchWallpapersApplication(Adw.Application):
         with open(json_path, 'r', encoding='utf-8') as file:
             try:
                 data = json.load(file)
-                for e in data:
+                for i in range(len(data)):
+                    e = data[i]
                     dark_path = f"{path}/{e["files"]}_dark.jpg"
                     light_path = f"{path}/{e["files"]}_light.jpg"
-                    self.add_wallpaper(page,e["version"],e["title"],dark_path,light_path)
+                    self.add_wallpaper(page,e["version"],e["title"],dark_path,light_path, i)
 
             except json.JSONDecodeError:
                 print(f"Error decoding JSON in file: {json_path}")
+
+    def on_art_about_action(self, position, theme):
+        """Callback for the app.about action."""
+        path = Path(__file__).parent.parent / "wallpapers"  
+        json_path = f"{path}/list.json"
+        with open(json_path, 'r', encoding='utf-8') as file:
+            try:
+                data = json.load(file)
+            except json.JSONDecodeError:
+                print(f"Error decoding JSON in file: {json_path}")
+
+        about = Adw.AboutWindow(transient_for=self.props.active_window,
+                                artists=[data[position][theme]["author"]],
+                                website=data[position][theme]["source"])
+
+        about.present()
     
 
 
