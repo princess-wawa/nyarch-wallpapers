@@ -6,6 +6,8 @@ from pathlib import Path
 import time
 import os
 
+from updates import auto_update, update_all
+
 gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
 from gi.repository import Gtk, Gio, Adw, GdkPixbuf, GLib, Gdk
@@ -41,11 +43,9 @@ class NyarchWallpapersApplication(Adw.Application):
         self.load_css()
 
         # Connect the widgets from the UI
-        self.nyarch_box = builder.get_object("nyarch-wallpapers")
-        self.release_box = builder.get_object("release-wallpapers")
-        self.gnome_box = builder.get_object("gnome-wallpapers")
+        self.wallpapers_box = builder.get_object("nyarch-wallpapers")
 
-        self.add_all_wallpapers(self.release_box, "updates")
+        self.add_all_wallpapers(self.wallpapers_box)
         
         print(self.win)
         
@@ -90,7 +90,7 @@ class NyarchWallpapersApplication(Adw.Application):
         version_label.get_style_context().add_class("wallpaper_version")
         vbox.append(version_label)
 
-        if name != None:
+        if name != "None":
             name_label = Gtk.Label(label=name)
             name_label.get_style_context().add_class("wallpaper_title")
             vbox.append(name_label)
@@ -140,8 +140,8 @@ class NyarchWallpapersApplication(Adw.Application):
         vbox.append(hbox_images)
         page.append(vbox)
 
-    def add_all_wallpapers(self, page, page_name):
-        path = Path(__file__).parent.parent / "wallpapers" / page_name 
+    def add_all_wallpapers(self, page):
+        path = Path(__file__).parent.parent / "wallpapers"  
         json_path = f"{path}/list.json"
         with open(json_path, 'r', encoding='utf-8') as file:
             try:
@@ -161,5 +161,5 @@ def main():
     app = NyarchWallpapersApplication()
     app.run(sys.argv)
 
-
+auto_update()
 main()

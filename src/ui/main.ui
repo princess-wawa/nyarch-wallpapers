@@ -6,67 +6,14 @@
   <requires lib="libadwaita" version="1.0"/>
   <object class="GtkWindow" id="main">
     <child>
-      <object class="GtkNotebook">
-        <property name="halign">baseline-fill</property>
+      <object class="GtkScrolledWindow">
         <property name="hexpand">True</property>
         <property name="vexpand">True</property>
-        
         <child>
-          <object class="GtkScrolledWindow">
-            <property name="hexpand">True</property>
-            <property name="vexpand">True</property>
-            <child>
-              <object class="GtkBox" id="nyarch-wallpapers">
-                <property name="orientation">vertical</property>
-              </object>
-            </child>
+          <object class="GtkBox" id="nyarch-wallpapers">
+            <property name="orientation">vertical</property>
           </object>
         </child>
-        <child type="tab">
-          <object class="GtkLabel">
-            <property name="css-classes">nyarch-label</property>
-            <property name="hexpand">True</property>
-            <property name="label">nyarch</property>
-          </object>
-        </child>
-
-        <child>
-          <object class="GtkScrolledWindow">
-            <property name="hexpand">True</property>
-            <property name="vexpand">True</property>
-            <child>
-              <object class="GtkBox" id="release-wallpapers">
-                <property name="orientation">vertical</property>
-              </object>
-            </child>
-          </object>
-        </child>
-        <child type="tab">
-          <object class="GtkLabel">
-            <property name="hexpand">True</property>
-            <property name="label">releases</property>
-          </object>
-        </child>
-
-        <child>
-          <object class="GtkScrolledWindow">
-            <property name="hexpand">True</property>
-            <property name="vexpand">True</property>
-            <child>
-              <object class="GtkBox" id="gnome-wallpapers">
-                <property name="orientation">vertical</property>
-              </object>
-            </child>
-          </object>
-        </child>
-        <child type="tab">
-          <object class="GtkLabel">
-            <property name="css-classes">gnome-label</property>
-            <property name="hexpand">True</property>
-            <property name="label">gnome</property>
-          </object>
-        </child>
-
       </object>
     </child>
   </object>

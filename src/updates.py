@@ -12,7 +12,8 @@ def auto_update():
     with open(datapath, 'r', encoding='utf-8') as file:
         try:
             data = json.load(file)
-            if data["auto-updates"] == True:
+
+            if data["auto-updates"] == "True":
                 print("auto updates are on, updating")
                 update_all()
             else:
@@ -47,39 +48,42 @@ def is_up_to_date():
 def update_all():
     """updates everything"""
     if not(is_up_to_date()):
-        update_category("nyarch")
-        update_category("updates")
-        update_category("gnome")
+        """updates all the wallpapers from the given category"""
+        wallpapers_path = Path(__file__).parent.parent / "wallpapers"
+        list_path = f"{wallpapers_path}/list.json"
+        update_path = f"https://raw.githubusercontent.com/princess-wawa/nyarch-wallpapers/refs/heads/main/wallpapers/list.json"
+        
+        success = download_file(update_path, list_path)
+        
+        if success:
+            with open(list_path, 'r', encoding='utf-8') as file:
+                try:
+                    data = json.load(file)
+                except json.JSONDecodeError:
+                    print(f"Error decoding JSON in file: {list_path}")
+            
+            threads = []
+            updated_something = False
+            for e in data:
+                dark_path = f"{wallpapers_path}/{e['files']}_dark.jpg"
+                light_path = f"{wallpapers_path}/{e['files']}_light.jpg"
+                if not(os.path.exists(dark_path)):
+                    updated_something = True
+                    threads.append(async_download_and_crop_image(e["dark"]["source-link"], dark_path))
+                if not(os.path.exists(light_path)):
+                    updated_something = True
+                    threads.append(async_download_and_crop_image(e["light"]["source-link"], light_path))
+            
+            if updated_something:
+                print("waiting for all threads to finish")
+                for t in threads:
+                    t.join()
+                print("all threads finished")
+            
+        data_path = str(Path(__file__).parent / "data.json")
+        download_file("https://raw.githubusercontent.com/princess-wawa/nyarch-wallpapers/refs/heads/main/src/data.json",data_path)
     else:
         print("up to date")
-
-def update_category(name):
-    """updates all the wallpapers from the given category"""
-    wallpapers_path = Path(__file__).parent.parent / "wallpapers" / name
-    list_path = f"{wallpapers_path}/list.json"
-    update_path = f"https://raw.githubusercontent.com/princess-wawa/nyarch-wallpapers/refs/heads/main/wallpapers/{name}/list.json"
-    
-    success = download_file(update_path, list_path)
-    
-    if success:
-        with open(list_path, 'r', encoding='utf-8') as file:
-            try:
-                data = json.load(file)
-            except json.JSONDecodeError:
-                print(f"Error decoding JSON in file: {list_path}")
-        
-        updated_something = False
-        for e in data:
-            dark_path = f"{wallpapers_path}/{e['files']}_dark.jpg"
-            light_path = f"{wallpapers_path}/{e['files']}_light.jpg"
-            if not(os.path.exists(dark_path)):
-                updated_something = True
-                t = async_download_and_crop_image(e["dark"]["source-link"], dark_path)
-            if not(os.path.exists(light_path)):
-                updated_something = True
-                t = async_download_and_crop_image(e["light"]["source-link"], light_path)
-        if updated_something:
-            t.join()
 
 
 def download_file(url, filename):
