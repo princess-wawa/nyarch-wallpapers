@@ -41,8 +41,11 @@ def is_up_to_date():
             first_run = data["first-run"]
         except json.JSONDecodeError:
             print(f"Error decoding JSON in file: {datapath}")
-    
-    return not(latest_version != current_version or bool(first_run))
+
+    if bool(first_run):
+        return latest_version == current_version
+    else:
+        return False
 
 
 
@@ -52,6 +55,9 @@ def update_all():
     wallpapers_path = Path(__file__).parent.parent / "wallpapers"
     list_path = f"{wallpapers_path}/list.json"
 
+    print(is_up_to_date())
+    print(os.path.exists(list_path))
+    
     if not(is_up_to_date() and os.path.exists(list_path)):
         """updates all the wallpapers from the given category"""
         update_path = f"https://raw.githubusercontent.com/princess-wawa/nyarch-wallpapers/refs/heads/main/wallpapers/list.json"
