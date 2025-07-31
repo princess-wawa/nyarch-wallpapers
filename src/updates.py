@@ -23,7 +23,7 @@ def auto_update():
             print(f"Error decoding JSON in file: {datapath}")
 
 def is_up_to_date():
-    """verifies if the version in data.json is the latest one, returns True if it is"""
+    """checks if the version in data.json is the latest one or if it is the first run of the program, returns True if it is"""
     try:
         response = requests.get("https://raw.githubusercontent.com/princess-wawa/nyarch-wallpapers/refs/heads/main/src/data.json")
         response.raise_for_status()  # Raises HTTPError for bad responses (4xx, 5xx)
@@ -38,10 +38,11 @@ def is_up_to_date():
         try:
             data = json.load(file)
             current_version = data["version"] 
+            first_run = data["first-run"]
         except json.JSONDecodeError:
             print(f"Error decoding JSON in file: {datapath}")
     
-    return latest_version == current_version
+    return not(latest_version != current_version or bool(first_run))
 
 
 
@@ -82,8 +83,25 @@ def update_all():
                     t.join()
                 print("all threads finished")
             
-        data_path = str(Path(__file__).parent / "data.json")
-        download_file("https://raw.githubusercontent.com/princess-wawa/nyarch-wallpapers/refs/heads/main/src/data.json",data_path)
+            data_path = str(Path(__file__).parent / "data.json")
+            with open(data_path, 'r') as f:
+                data = json.load(f)
+            
+            data["first-run"] = "False" # update the value of first-run once updated
+            
+            try:
+                response = requests.get("https://raw.githubusercontent.com/princess-wawa/nyarch-wallpapers/refs/heads/main/src/data.json")
+                response.raise_for_status()  # Raises HTTPError for bad responses (4xx, 5xx)
+                latest_version = response.json()["version"]
+            except requests.exceptions.RequestException as e:
+                print(f"Request failed: {e}")
+                
+            data["version"] = latest_version # update the value of version since u just downloaded the new version
+            
+            with open('data.json', 'w', encoding='utf-8') as f:
+                json.dump(data, f, ensure_ascii=False, indent=4)
+            
+            print("updated data.json")
     else:
         print("up to date")
 

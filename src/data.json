@@ -1,4 +1,5 @@
 {
-    "version":2,
-    "auto-updates": "True"     
+    "version": 2,
+    "auto-updates": "True",
+    "first-run": "False"
 }
