@@ -1,1 +1,2 @@
 *.jpg
+/src/__pycache__
